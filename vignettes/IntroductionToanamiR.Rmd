@@ -1,0 +1,328 @@
+---
+title: "Introduction to anamiR"
+author: "anamiR Developers"
+date: "`r Sys.Date()`"
+output:
+  BiocStyle::html_document:
+  toc: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to anamiR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+This document guides one through all available functions of the `anamiR` package. Package anamiR aims to find potential miRNA-target gene interactions from both miRNA and mRNA expression data.
+
+Traditional miRNA analysis method is to use online databases to predict miRNA-target gene interactions. However, the false positive rate of prediction is so high that interactions are not reliable. To address this issue, anamiR integrates the whole expression analysis with expression data into workflow, including normalization, differential expression, correlation and then databases intersection, to find more reliable interactions.
+
+
+## Installation
+
+anamiR is on Bioconductor and can be installed following standard installation procedure.
+
+```{r, eval = FALSE}
+source("http://www.bioconductor.org/biocLite.R")
+biocLite("anamiR")
+```
+
+To use,
+
+```{r}
+library(anamiR)
+```
+
+
+## General Workflow
+
+The general workflow can be summarized as follows,
+
+![](pics/workflow.png)
+
+Basically there are six steps, corresponding to six R functions, to complete the whole analysis:
+
+1. Normalize expression data
+2. Find differential expreesion miRNAs and genes
+3. Convert miRNA annotation to the latest version
+4. Calculate the correlation coefficient between each miRNA and gene
+5. Intersect with prediction and validation of miRNA- target gene interactions databases
+6. Functional analysis with interested genes
+
+
+## Data Source
+
+As shown in the workflow, not only samples of *paired* miRNA and mRNA expression
+data ,but  phenotypical information of miRNA and mRNA are also required for the
+analysis. Since anamiR reads data in expression matrices, data sources are
+platform and technology agnostic. particularly, expression data from microarray
+or next generation sequencing are all acceptable for anamiR. However, this also
+indicates the raw data should be pre-processd to the expression matrices before
+using anamiR.
+
+### mRNA expression
+
+Columns for samples. Rows for genes
+
+```raw
+GENE  SmapleA   SamplB ...
+A     0.1       0.2
+B    -0.5      -0.3
+C     0.4       0.1
+```
+
+### miRNA expression
+
+Columns for samples. Rows for miRNAs
+
+```raw
+miRNA  SampleA  SampleB ...
+A         0.1     0.5
+B        -0.5     2.1
+C         0.4     0.3
+```
+
+### phenotype data
+
+Cloumns for samples. Rows for feature name, including two groups, multiple groups, continuous data.
+
+```raw
+Feature  SampleA  SampleB  SampleC ...
+groupA   A        B        A
+groupB   A        B        C
+groupC   121.22   120.34   123.33
+```
+
+## Usage Example
+
+Now, we show an example using internal data for anamiR workflow.
+
+### Example Data Source
+
+To demonstrate the usage of the `anamiR` package, the package  contains 30 paired
+miRNA and mRNA breast cancer samples, which are selected from 101 miRNA samples and
+114 mRNA samples from GSE19536. As for phenotype data (hybridization information),
+there are three types of information in it, including two-groups, multi-groups,
+continuous data.
+
+The mRNA data was conducted by Agilent-014850 Whole Human Genome Microarray 4x44K
+G4112F (Probe Name version) platform and the miRNA data was generated from
+Agilent-019118 Human miRNA Microarray 2.0 G4470B (miRNA ID version).
+
+### Format of Input Data
+
+First of all, load the internal data and check the format.
+
+```{r}
+data(mrna)
+data(mirna)
+data(pheno.mirna)
+data(pheno.mrna)
+```
+
+Basically, the format of input data should be the same as the internal data.
+For mRNA expression data should be like,
+
+```{r}
+mrna[1:5,1:5]
+```
+
+As for miRNA expression data,
+
+```{r}
+mirna[1:5,1:5]
+```
+
+And the phenotype data,
+
+```{r}
+pheno.mrna[1:3,1:3]
+```
+
+Actually, the phenotype data of miRNA and mRNA share the same contents,but
+in this case, we still make it in two data to prevent users from being
+confused about it.
+
+### Normalization (Optional)
+
+Secondly, we normalize data.
+(If you use the normalized data, you can skip this step.)
+
+```{r, eval = FALSE}
+se <- normalization(data = mirna, method = "quantile")
+```
+
+For this function, there are three methods provided, including `quntile`,
+`rank.invariant`, `normal`. For more detail, Please refer to their
+documentation.
+
+Note that internal data have already been normalized, here is only for
+demonstration.
+
+### SummarizedExperiment class
+
+Before entering the main workflow, we should put our data and phenotype 
+information into `SummarizedExperiment` class first, which you can get 
+more information from \code{\link[SummarizedExperiment]{SummarizedExperiment}}.
+
+```{r}
+
+mrna_se <- SummarizedExperiment(
+    assays = SimpleList(counts=mrna),
+    colData = pheno.mrna)
+
+mirna_se <- SummarizedExperiment(
+    assays = SimpleList(counts=mirna),
+    colData = pheno.mirna)
+
+```
+
+### Differential Expression Analysis
+
+Third, we will find differential expression genes and miRNAs.
+There are three statitical methods in this function. here, we use
+`t.test` for demonstration.
+
+```{r}
+mrna_d <- differExp_discrete(se = mrna_se,
+    class = "ER", method = "t.test",
+    t_test.var = FALSE, log2 = FALSE,
+    p_value.cutoff = 0.05,  foldchange = 0.5
+)
+
+mirna_d <- differExp_discrete(se = mirna_se,
+   class = "ER", method = "t.test",
+   t_test.var = FALSE, log2 = FALSE,
+   p_value.cutoff = 0.05,  foldchange = 0.5
+)
+```
+
+This function will delete genes and miRNAs (rows), which do not
+differential express, and add another three columns represent
+fold change (log2), p-value, adjusted p-value.
+
+Take differential expressed mRNA data for instance,
+
+```{r}
+nc <- ncol(mrna_d)
+mrna_d[1:5, (nc-4):nc]
+```
+
+### Convert miRNA Annotation (Optional)
+
+Before using collected databases for intersection with potential
+miRNA-target gene interactions, we have to make sure all miRNA
+are in the latest annotation version (miRBase 21). If not, we
+could use this function  to do it.
+
+```{r}
+mirna_21 <- miR_converter(data = mirna_d, remove_old = TRUE,
+    original_version = 17, latest_version = 21)
+```
+
+Now, we can compare these two data,
+
+```{r}
+# Before
+head(row.names(mirna_d))
+# After
+head(row.names(mirna_21))
+```
+
+Note that user must put the right original version into parameter,
+because it is an important information for function to convert
+annotation.
+
+### Correlation Analysis
+
+To find potential miRNA-target gene interactions, we should
+combine the information in two differential expressed data,
+which we obtained from `differExp_discrete`.
+
+```{r}
+cor <- negative_cor(mrna_data = mrna_d, mirna_data = mirna_21,
+    method = "pearson", cut.off = -0.5)
+```
+
+For output,
+
+```{r}
+head(cor)
+```
+
+As the showing `list`, each row is a potential interaction,
+and only the row that correlation coefficient < cut.off would
+be kept in list.
+
+Note that in our assumption, miRNAs negatively regulate
+expression of their target genes, that is, cut.off basically
+should be negative decimal.
+
+### Intersect with Databases
+
+After correlation analysis, we have some potential interactions,
+and then using `database_support` helps us to get information
+that whether there are databases predict or validate  these
+interactions.
+
+```{r}
+sup <- database_support(cor_data = cor,
+    org = "hsa", Sum.cutoff = 3)
+```
+
+From output, column `Sum` tells us the total hits by 8 predict
+databases and column `Validate` tells us if this interaction
+have been validated.
+
+```{r}
+head(sup)
+```
+Note that we have 8 predict databases (DIANA microT CDS, EIMMo,
+Microcosm, miRDB, miRanda, PITA, rna22, TargetScan) and 2
+validate databases (miRecords, miRTarBase).
+
+### Heat map (optional)
+
+There is a function for user to see the heat map about 
+the miRNA-target gene interactions remaining in the 
+table.
+
+```{r}
+heat_vis(sup)
+```
+
+### Functional Analysis
+
+The last, after finding reliable miRNA-target gene interactions,
+we are also interested in pathways, which may be enriched by
+these genes.
+
+```{r}
+path <- enrichment(data_support = sup, org = "hsa", per_time = 1000)
+```
+
+Note that for parameter per_time, we only choose 1000 times, 
+because it is for demonstration here. Default is 5000 times.
+
+The output from this data not only shows P-Value generated by
+hypergeometric test, but Empirical P-Value, which means the
+value of average permutation test in each pathway.
+
+```{r}
+head(path)
+```
+
+## Other Functions
+
+### Multiple-Groups Data
+
+As for the data, which classify samples into more than two
+groups, anamiR provides function `multi_Differ`. User can
+get more information about this function by refering to
+its documentation.
+
+### Continuous Data
+
+The data with continuous phenotype feature are also supported,
+`differExp_continuous` contains linear regression model, which
+can fit the continuous data series. User can get more
+information about this function by refering to its documentation.
+
+
