@@ -94,44 +94,40 @@ differExp_discrete <- function(
       levels(group)[levels(group) == type[1]] <- 0
       levels(group)[levels(group) == type[2]] <- 1
     }
-    group_1 <- which(pheno_data == levels(pheno_data)[1])
-    group_2 <- which(pheno_data == levels(pheno_data)[2])
+    gp1 <- which(pheno_data == levels(pheno_data)[1])
+    gp2 <- which(pheno_data == levels(pheno_data)[2])
 
-    #Fold Changes
-    foldchange_cal <- function(da, gp1, gp2) {
+      #Fold Changes and mean
       if (length(gp1) == 1) {
-        mean_gp1 <- da[, gp1]
+        mean_gp1 <- data[, gp1]
       } else {
-        mean_gp1 <- apply(da[, gp1], 1, mean)
+        mean_gp1 <- apply(data[, gp1], 1, mean)
       }
       if (length(gp2) == 1) {
-        mean_gp2 <- da[, gp2]
+        mean_gp2 <- data[, gp2]
       } else{
-        mean_gp2 <- apply(da[, gp2], 1, mean)
+        mean_gp2 <- apply(data[, gp2], 1, mean)
       }
-      FC <- mean_gp1 - mean_gp2
-      return(FC)
-    }
 
     if (method != "DESeq") {
-      FC <- foldchange_cal(data, group_1, group_2)
+      FC <- mean_gp1 - mean_gp2
       p_value <- vector(mode = "numeric", length = nrow(data))
     }
 
     # t.test
     if (method == "t.test") {
-      t_test <- function (da, gp1, gp2) {
-        stats::t.test(da[gp1], da[gp2], var.equal = t_test.var)[["p.value"]]
+      t_test <- function (da, gp_1, gp_2) {
+        stats::t.test(da[gp_1], da[gp_2], var.equal = t_test.var)[["p.value"]]
       }
-      p_value <- apply(data, 1, t_test, group_1, group_2)
+      p_value <- apply(data, 1, t_test, gp1, gp2)
     }
 
     # wilcoxon
     if (method == "wilcox.test") {
-      wilcoxon <- function (da, gp1, gp2) {
-        stats::wilcox.test(da[gp1], da[gp2])[["p.value"]]
+      wilcoxon <- function (da, gp_1, gp_2) {
+        stats::wilcox.test(da[gp_1], da[gp_2])[["p.value"]]
       }
-      p_value <- apply(data, 1, wilcoxon, group_1, group_2)
+      p_value <- apply(data, 1, wilcoxon, gp1, gp2)
     }
 
     # limma  (trend)
@@ -161,12 +157,15 @@ differExp_discrete <- function(
     }
     idx <- which(p_adjust < p_value.cutoff)
     DE_data <- data[idx, ]
-    DE_data <- cbind(DE_data, FC[idx], p_value[idx], p_adjust[idx])
+    DE_data <- cbind(DE_data, FC[idx], p_value[idx], p_adjust[idx],
+                     mean_gp1[idx], mean_gp2[idx])
     len_col <- ncol(DE_data)
-    colnames(DE_data)[(len_col - 2):len_col] <- c("Fold-Change",
+    colnames(DE_data)[(len_col - 4):len_col] <- c("Fold-Change",
                                                   "P-Value",
-                                                  "P-adjust")
-    FC_rows <- abs(DE_data[, len_col - 2])
+                                                  "P-adjust",
+                                                  "mean_group1",
+                                                  "mean_group2")
+    FC_rows <- abs(DE_data[, len_col - 4])
     DE_data <- DE_data[which(FC_rows > foldchange), ]
     return(DE_data)
   }

@@ -4,7 +4,7 @@
 \alias{enrichment}
 \title{Enrich pathway with genes from potential miRNA-target gene interactions.}
 \usage{
-enrichment(data_support, org = "hsa", per_time = 5000)
+enrichment(data_support, org = c("hsa", "mmu"), per_time = 5000)
 }
 \arguments{
 \item{data_support}{matrix format generated from

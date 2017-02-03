@@ -74,9 +74,10 @@
 #' @export
 enrichment <- function(
   data_support,
-  org = "hsa",
+  org = c("hsa", "mmu"),
   per_time = 5000
 ) {
+  org <- match.arg(org)
   db <- RMySQL::dbConnect(RMySQL::MySQL(),
                           user = "visitor",
                           password = "visitor",

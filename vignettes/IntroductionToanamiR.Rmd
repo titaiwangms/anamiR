@@ -50,7 +50,7 @@ Basically there are six steps, corresponding to six R functions, to complete the
 ## Data Source
 
 As shown in the workflow, not only samples of *paired* miRNA and mRNA expression
-data ,but  phenotypical information of miRNA and mRNA are also required for the
+data, but  phenotypical information of miRNA and mRNA are also required for the
 analysis. Since anamiR reads data in expression matrices, data sources are
 platform and technology agnostic. particularly, expression data from microarray
 or next generation sequencing are all acceptable for anamiR. However, this also
@@ -84,10 +84,10 @@ C         0.4     0.3
 Cloumns for samples. Rows for feature name, including two groups, multiple groups, continuous data.
 
 ```raw
-Feature  SampleA  SampleB  SampleC ...
-groupA   A        B        A
-groupB   A        B        C
-groupC   121.22   120.34   123.33
+Feature  groupA  groupA  groupA ...
+SampleA  123.33     A       A
+SampleB  120.34     B       C
+SampleC  121.22     A       B
 ```
 
 ## Usage Example
@@ -308,6 +308,130 @@ value of average permutation test in each pathway.
 
 ```{r}
 head(path)
+```
+
+
+## GSEA Workflow
+
+This package also provides another workflow for analyzing
+expression data.
+
+![](pics/GSEA.png)
+
+Basically there are only two steps with two R functions, to complete the whole analysis:
+
+1. Find related miRNAs and genes in the possible enriched pathways.
+2. Find potential interactions from the above result.
+
+## Usage Example
+
+Now, we show an example using internal data for anamiR workflow.
+
+### Example Data Source
+
+To demonstrate the usage of the `anamiR` package, the package  contains 99 paired
+miRNA and mRNA breast cancer samples, which are selected from 101 miRNA samples and
+114 mRNA samples from GSE19536. As for phenotype data (hybridization information).
+
+The mRNA data was conducted by Agilent-014850 Whole Human Genome Microarray 4x44K
+G4112F (Probe Name version) platform and the miRNA data was generated from
+Agilent-019118 Human miRNA Microarray 2.0 G4470B (miRNA ID version).
+
+### Format of Input Data
+
+The same as the format in the first workflow.
+
+```{r}
+require(data.table)
+
+aa <- system.file("extdata", "GSE19536_mrna.csv", package = "anamiR")
+mrna <- fread(aa, fill = TRUE, header = TRUE)
+
+bb <- system.file("extdata", "GSE19536_mirna.csv", package = "anamiR")
+mirna <- fread(bb, fill = TRUE, header = TRUE)
+
+cc <- system.file("extdata", "pheno_data.csv", package = "anamiR")
+pheno.data <- fread(cc, fill = TRUE, header = TRUE)
+```
+
+transform the data format to matrix.
+
+```{r}
+mirna_name <- as.matrix(mirna[, 1])
+mrna_name <- as.matrix(mrna[, 1])
+mirna <- mirna[, -1]
+mrna <- mrna[, -1]
+mirna <- data.matrix(mirna)
+mrna <- data.matrix(mrna)
+row.names(mirna) <- mirna_name
+row.names(mrna) <- mrna_name
+
+pheno_name <- as.matrix(pheno.data[, 1])
+pheno.data <- pheno.data[, -1]
+row.names(pheno.data) <- pheno_name
+pheno.data <- as.matrix(pheno.data)
+
+```
+
+mrna expression data should be the same format as,
+
+```{r}
+mrna[1:5, 1:5]
+```
+
+as for mirna,
+
+```{r}
+mirna[1:5, 1:5]
+```
+
+and phenotype data,
+
+```{r}
+pheno.data[1:5, 1]
+```
+
+### GSEA analysis
+
+First step, we use `GSEA_ana` function to find the pathways 
+which are the most likely enriched in given expreesion data.
+
+```{r}
+table <- GSEA_ana(mrna = mrna, mirna = mirna, pathway_num = 2)
+```
+
+the result would be a list containg related genes and miRNAs
+matrix for each pathway.
+
+For the first pathway,
+
+```{r}
+names(table)[1]
+table[[1]][1:5, 1:5]
+names(table)[2]
+table[[2]][1:5, 1:5]
+```
+
+`GSEA_ana` intersects the related genes and miRNAs found
+from databases with the given expression data.
+
+### GSEA Result
+
+After doing GSEA analysis, we have selected miRNA and gene 
+expression data for each enriched pathway. As for the second 
+step, the generated odject would be put into `GSEA_res`.
+
+```{r}
+result <- GSEA_res(table = table, pheno.data = pheno.data, class = "ER", DE_method = "limma")
+```
+
+This function helps us calculate P-value, Fold-Change,
+Correlation for each miRNA-gene pair and show these
+value to users.
+
+```{r}
+names(result)[1]
+result[[1]][1:5, ]
 ```
 
 ## Other Functions
