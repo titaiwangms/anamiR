@@ -1,5 +1,3 @@
-#' GSEA analysis is applied to given gene and miRNA expression data.
-#'
 #' This function will do GSEA analysis through the function
 #' \code{\link[gage]{gage}}. After obtaining the ranking of
 #' pathways, this function will choose the top five (default)
@@ -56,6 +54,7 @@
 #'
 #' @import gage
 #' @import RMySQL
+#' @import DBI
 #' @importFrom S4Vectors head
 #' @export
 GSEA_ana <- function(

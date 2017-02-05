@@ -2,7 +2,11 @@
 % Please edit documentation in R/GSEA_ana.R
 \name{GSEA_ana}
 \alias{GSEA_ana}
-\title{GSEA analysis is applied to given gene and miRNA expression data.}
+\title{This function will do GSEA analysis through the function
+\code{\link[gage]{gage}}. After obtaining the ranking of
+pathways, this function will choose the top five (default)
+pathaways, and then find the related miRNAs based on their
+gene set.}
 \usage{
 GSEA_ana(mrna, mirna, ref = NULL, samp = NULL, eg2sym = TRUE,
   pathway_num = 5)
