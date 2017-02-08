@@ -1,3 +1,5 @@
+#' This function will do GSEA analysis.
+#'
 #' This function will do GSEA analysis through the function
 #' \code{\link[gage]{gage}}. After obtaining the ranking of
 #' pathways, this function will choose the top five (default)
