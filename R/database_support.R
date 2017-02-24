@@ -88,8 +88,12 @@ database_support <- function(
     gene <- cor_data[i, 2]
     fc_mirna <- cor_data[i, 4]
     p_mirna <- cor_data[i, 5]
-    fc_gene <- cor_data[i, 6]
-    p_gene <- cor_data[i, 7]
+    mg1_mirna <- cor_data[i, 6]
+    mg2_mirna <- cor_data[i, 7]
+    fc_gene <- cor_data[i, 8]
+    p_gene <- cor_data[i, 9]
+    mg1_gene <- cor_data[i, 10]
+    mg2_gene <- cor_data[i, 11]
     if (org %in% "hsa"){
       query <- paste0("SELECT * FROM `all_hsa` WHERE miRNA_21 like '",
                       mirna, "' AND gene_symbol like '", gene, "' ;")
@@ -113,13 +117,14 @@ database_support <- function(
       gene_info <- DBI::dbGetQuery(db, query)
       tmp[1, ] <- c(mirna, gene, gene_info[1, 2], gene_info[1, 3],
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", "FALSE")
-      tmp <- c(tmp, fc_mirna, p_mirna, fc_gene, p_gene, 1)
+      tmp <- c(tmp, fc_mirna, p_mirna, mg1_mirna, mg2_mirna,
+               fc_gene, p_gene, mg1_gene, mg2_gene, 0)
       interaction[[i]] <- tmp
-      print(interaction)
     } else if (nrow(tmp) == 0 && Sum.cutoff > 0) {
       next
     } else {
-      tmp <- c(tmp, fc_mirna, p_mirna, fc_gene, p_gene, 0)
+      tmp <- c(tmp, fc_mirna, p_mirna, mg1_mirna, mg2_mirna,
+               fc_gene, p_gene, mg1_gene, mg2_gene, 0)
       interaction[[i]] <- tmp
     }
   }
@@ -140,6 +145,5 @@ database_support <- function(
     }
     interaction <- interaction[-del_row, ]
   }
-
   return(interaction)
 }
