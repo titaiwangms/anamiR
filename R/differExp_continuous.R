@@ -63,8 +63,13 @@ differExp_continuous <- function(
   # output
   idx <- which(p_value < p_value.cutoff)
   DE_data <- data[idx, ]
-  DE_data <- cbind(DE_data, p_value[idx])
+  a <- rep(NA, nrow(DE_data))
+  DE_data <- cbind(DE_data, a, p_value[idx], a, a, a)
   len_col <- ncol(DE_data)
-  colnames(DE_data)[len_col] <- c("P-Value")
+  colnames(DE_data)[(len_col - 4):len_col] <- c("Fold-Change",
+                                                "P-Value",
+                                                "P-adjust",
+                                                "mean_group1",
+                                                "mean_group2")
   return(DE_data)
 }

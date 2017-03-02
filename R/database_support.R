@@ -86,6 +86,7 @@ database_support <- function(
   for (i in seq_len(nrow(cor_data))) {
     mirna <- cor_data[i, 1]
     gene <- cor_data[i, 2]
+    cor_par <- cor_data[i, 3]
     fc_mirna <- cor_data[i, 4]
     p_mirna <- cor_data[i, 5]
     mg1_mirna <- cor_data[i, 6]
@@ -117,13 +118,13 @@ database_support <- function(
       gene_info <- DBI::dbGetQuery(db, query)
       tmp[1, ] <- c(mirna, gene, gene_info[1, 2], gene_info[1, 3],
                     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", "FALSE")
-      tmp <- c(tmp, fc_mirna, p_mirna, mg1_mirna, mg2_mirna,
-               fc_gene, p_gene, mg1_gene, mg2_gene, 0)
+      tmp <- c(tmp, cor_par, fc_mirna, p_mirna, mg1_mirna, mg2_mirna,
+               fc_gene, p_gene, mg1_gene, mg2_gene, 1)
       interaction[[i]] <- tmp
     } else if (nrow(tmp) == 0 && Sum.cutoff > 0) {
       next
     } else {
-      tmp <- c(tmp, fc_mirna, p_mirna, mg1_mirna, mg2_mirna,
+      tmp <- c(tmp, cor_par, fc_mirna, p_mirna, mg1_mirna, mg2_mirna,
                fc_gene, p_gene, mg1_gene, mg2_gene, 0)
       interaction[[i]] <- tmp
     }
