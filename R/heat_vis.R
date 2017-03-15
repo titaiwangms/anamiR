@@ -75,15 +75,12 @@ heat_vis <- function(
   mirna <- cor_data[, 1]
   gene <- cor_data[, 2]
 
-  mirna_da <- mirna_21[, 1:(ncol(mirna_21)-3)]
-  mrna_da <- mrna_d[, 1:(ncol(mrna_d)-3)]
+  mirna_da <- mirna_21[, 1:(ncol(mirna_21)-5)]
+  mrna_da <- mrna_d[, 1:(ncol(mrna_d)-5)]
 
   mirna_exp <- mirna_da[mirna, ]
   mrna_exp <- mrna_da[gene, ]
 
-  hmcols <- rev(gplots::redgreen(1000))
-
-  gplots::heatmap.2(mirna_exp, col = hmcols, cexRow = 0.6, cexCol = 0.6, margins = c(6, 6))
-  gplots::heatmap.2(mrna_exp, col = hmcols,  cexRow = 0.6, cexCol = 0.6, margins = c(6, 6))
-
+  gplots::heatmap.2(mirna_exp, trace="none", col = gplots::greenred(10), Rowv = FALSE, Colv = "Rowv", dendrogram = "none")
+  gplots::heatmap.2(mrna_exp, trace="none", col = gplots::greenred(10), Rowv = FALSE, Colv = "Rowv", dendrogram = "none")
 }
