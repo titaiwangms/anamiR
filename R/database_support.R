@@ -96,11 +96,19 @@ database_support <- function(
     mg1_gene <- cor_data[i, 10]
     mg2_gene <- cor_data[i, 11]
     if (org %in% "hsa"){
-      query <- paste0("SELECT * FROM `all_hsa` WHERE miRNA_21 like '",
+      query <- paste0("SELECT `miRNA_21`, `Gene_symbol`, `Ensembl`,
+                      `Gene_ID`, `DIANA_microT_CDS`, `EIMMo`, `Microcosm`,
+                      `miRDB`, `miRanda`, `PITA`, `rna22`, `Targetscan`,
+                      `miRecords`, `miRTarBase`, `Sum`,
+                      `Validate` FROM `all_hsa` WHERE miRNA_21 like '",
                       mirna, "' AND gene_symbol like '", gene, "' ;")
     }
     if (org %in% "mmu"){
-      query <- paste0("SELECT * FROM `all_mmu` WHERE miRNA_21 like '",
+      query <- paste0("SELECT `miRNA_21`, `Gene_symbol`, `Ensembl`,
+                      `Gene_ID`, `DIANA_microT_CDS`, `EIMMo`, `Microcosm`,
+                      `miRDB`, `miRanda`, `PITA`, `rna22`, `Targetscan`,
+                      `miRecords`, `miRTarBase`, `Sum`,
+                      `Validate` FROM `all_mmu` WHERE miRNA_21 like '",
                       mirna, "' AND gene_symbol like '", gene, "' ;")
     }
     tmp <- DBI::dbGetQuery(db, query)
@@ -117,7 +125,7 @@ database_support <- function(
       }
       gene_info <- DBI::dbGetQuery(db, query)
       tmp[1, ] <- c(mirna, gene, gene_info[1, 2], gene_info[1, 3],
-                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "", "FALSE")
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, "FALSE")
       tmp <- c(tmp, cor_par, fc_mirna, p_mirna, mg1_mirna, mg2_mirna,
                fc_gene, p_gene, mg1_gene, mg2_gene, 1)
       interaction[[i]] <- tmp
@@ -140,7 +148,7 @@ database_support <- function(
   if (Sum.cutoff > 0) {
     del_row <- c()
     for (i in seq_len(nrow(interaction))) {
-      if (interaction[i, 13] <= Sum.cutoff && interaction[i, 17] %in% "FALSE") {
+      if (interaction[i, 13] <= Sum.cutoff && interaction[i, 16] %in% "FALSE") {
         del_row <- c(del_row, i)
       }
     }

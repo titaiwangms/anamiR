@@ -23,13 +23,13 @@
 #'    Whether to treat the two variances as being equal. From function
 #'    \code{\link[stats]{t.test}}
 #' @param log2 logical, if this data hasn't been log2 transformed yet, this one
-#'    should be TRUE. Default is FALSE.
+#'    should be TRUE Default is FALSE.
 #' @param p_value.cutoff an numeric value indicating a threshold of p-value
 #'    for every genes or miRNAs (rows). Default is 0.05.
 #' @param p_adjust.method Correction method for multiple testing. (If you are
 #'    using DESeq for method, this param would not affect the result) From
 #'    function \code{\link[stats]{p.adjust}}. Default is "BH".
-#' @param foldchange an numeric value indicating a threshold of foldchange (log2)
+#' @param logratio an numeric value indicating a threshold of logratio
 #'    for every genes or miRNAs (rows). Default is 0.5.
 #'
 #' @examples
@@ -73,12 +73,12 @@ differExp_discrete <- function(
   log2 = FALSE,
   p_value.cutoff = 0.05,
   p_adjust.method = "BH",
-  foldchange = 0.5
+  logratio = 0.5
 ) {
 
   data <- SummarizedExperiment::assays(se)[[1]]
 
-  if (log2 %in% TRUE) {
+  if (log2 %in% "TRUE") {
     data <- log2(data)
   }
 
@@ -160,13 +160,13 @@ differExp_discrete <- function(
     DE_data <- cbind(DE_data, FC[idx], p_value[idx], p_adjust[idx],
                      mean_gp1[idx], mean_gp2[idx])
     len_col <- ncol(DE_data)
-    colnames(DE_data)[(len_col - 4):len_col] <- c("Fold-Change",
+    colnames(DE_data)[(len_col - 4):len_col] <- c("log-ratio",
                                                   "P-Value",
                                                   "P-adjust",
                                                   "mean_group1",
                                                   "mean_group2")
     FC_rows <- abs(DE_data[, len_col - 4])
-    DE_data <- DE_data[which(FC_rows > foldchange), ]
+    DE_data <- DE_data[which(FC_rows > logratio), ]
     return(DE_data)
   }
 }
