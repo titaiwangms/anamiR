@@ -145,14 +145,14 @@ database_support <- function(
   # add column de novo
   colnames(interaction)[ncol(interaction)] <- c("de novo")
 
-  if (Sum.cutoff > 0) {
+  if (Sum.cutoff > 1) {
     del_row <- c()
     for (i in seq_len(nrow(interaction))) {
-      if (interaction[i, 13] <= Sum.cutoff && interaction[i, 16] %in% "FALSE") {
+      if (interaction[i, 13] < Sum.cutoff && interaction[i, 16] %in% "FALSE") {
         del_row <- c(del_row, i)
       }
     }
-    interaction <- interaction[-del_row, ]
+    interaction <- interaction[-(del_row), ]
   }
   return(interaction)
 }
