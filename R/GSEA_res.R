@@ -97,14 +97,14 @@ GSEA_res <- function(
                                     class = class, method = DE_method,
                                     limma.trend = limma.trend,
                                     t_test.var = t_test.var,
-                                    log2 = log2, foldchange = 0,
+                                    log2 = log2, logratio = 0,
                                     p_value.cutoff = 1,
                                     p_adjust.method = p_adjust.method)
     mrna_dif <- differExp_discrete(se = mrna_se,
                                     class = class, method = DE_method,
                                     limma.trend = limma.trend,
                                     t_test.var = t_test.var,
-                                    log2 = log2, foldchange = 0,
+                                    log2 = log2, logratio = 0,
                                     p_value.cutoff = 1,
                                     p_adjust.method = p_adjust.method)
 

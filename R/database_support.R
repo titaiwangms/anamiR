@@ -99,7 +99,7 @@ database_support <- function(
       query <- paste0("SELECT `miRNA_21`, `Gene_symbol`, `Ensembl`,
                       `Gene_ID`, `DIANA_microT_CDS`, `EIMMo`, `Microcosm`,
                       `miRDB`, `miRanda`, `PITA`, `rna22`, `Targetscan`,
-                      `miRecords`, `miRTarBase`, `Sum`,
+                      `Sum`, `miRecords`, `miRTarBase`,
                       `Validate` FROM `all_hsa` WHERE miRNA_21 like '",
                       mirna, "' AND gene_symbol like '", gene, "' ;")
     }
@@ -107,7 +107,7 @@ database_support <- function(
       query <- paste0("SELECT `miRNA_21`, `Gene_symbol`, `Ensembl`,
                       `Gene_ID`, `DIANA_microT_CDS`, `EIMMo`, `Microcosm`,
                       `miRDB`, `miRanda`, `PITA`, `rna22`, `Targetscan`,
-                      `miRecords`, `miRTarBase`, `Sum`,
+                      `Sum`, `miRecords`, `miRTarBase`,
                       `Validate` FROM `all_mmu` WHERE miRNA_21 like '",
                       mirna, "' AND gene_symbol like '", gene, "' ;")
     }
