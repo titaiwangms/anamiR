@@ -119,6 +119,7 @@ differExp_discrete <- function(
       t_test <- function (da, gp_1, gp_2) {
         stats::t.test(da[gp_1], da[gp_2], var.equal = t_test.var)[["p.value"]]
       }
+      print(gp1)
       p_value <- apply(data, 1, t_test, gp1, gp2)
     }
 

@@ -102,12 +102,12 @@ negative_cor <- function(
           corr[[n]][3] <- tmp
           corr[[n]][4] <- data_2[["log-ratio"]][j]
           corr[[n]][5] <- data_2[["P-adjust"]][j]
-          corr[[n]][6] <- data_2[["mean_group1"]][j]
-          corr[[n]][7] <- data_2[["mean_group2"]][j]
+          corr[[n]][6] <- data_2[["mean_case"]][j]
+          corr[[n]][7] <- data_2[["mean_control"]][j]
           corr[[n]][8] <- data_1[["log-ratio"]][i]
           corr[[n]][9] <- data_1[["P-adjust"]][i]
-          corr[[n]][10] <- data_1[["mean_group1"]][i]
-          corr[[n]][11] <- data_1[["mean_group2"]][i]
+          corr[[n]][10] <- data_1[["mean_case"]][i]
+          corr[[n]][11] <- data_1[["mean_control"]][i]
           n <- n + 1
         }
       }
@@ -126,8 +126,8 @@ negative_cor <- function(
   last_column <- paste("Correlation(", cut.off, ")")
   colnames(corr) <- c("miRNA", "Gene", last_column,
                       "logratio(miRNA)", "P-adjust(miRNA)",
-                      "mean_group1(miRNA)", "mean_group2(miRNA)",
+                      "mean_case(miRNA)", "mean_control(miRNA)",
                       "logratio(gene)", "P-adjust(gene)",
-                      "mean_group1(gene)", "mean_group2(gene)")
+                      "mean_case(gene)", "mean_control(gene)")
   return(corr)
 }

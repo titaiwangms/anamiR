@@ -81,4 +81,3 @@ pat <- enrichment(data_support = sup, org = "hsa", per_time = 1000)
 \seealso{
 \code{\link[stats]{phyper}} for details.
 }
-

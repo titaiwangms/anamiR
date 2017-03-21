@@ -20,4 +20,3 @@ This table is originally from \code{\link[gage]{gage}},
 including 177 pathways.
 }
 \keyword{datasets}
-

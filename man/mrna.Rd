@@ -52,4 +52,3 @@ This mRNA expression dataset is originally from GSE19536. To make dataset
 smaller, we have selected 30 samples in columns and 19210 genes in rows.
 }
 \keyword{datasets}
-

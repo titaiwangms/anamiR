@@ -6,7 +6,7 @@
 \usage{
 differExp_discrete(se, class, method = c("t.test", "limma", "wilcox.test",
   "DESeq"), limma.trend = FALSE, t_test.var = FALSE, log2 = FALSE,
-  p_value.cutoff = 0.05, p_adjust.method = "BH", foldchange = 0.5)
+  p_value.cutoff = 0.05, p_adjust.method = "BH", logratio = 0.5)
 }
 \arguments{
 \item{se}{\code{\link[SummarizedExperiment]{SummarizedExperiment}}
@@ -25,7 +25,7 @@ Whether to treat the two variances as being equal. From function
 \code{\link[stats]{t.test}}}
 
 \item{log2}{logical, if this data hasn't been log2 transformed yet, this one
-should be TRUE. Default is FALSE.}
+should be TRUE Default is FALSE.}
 
 \item{p_value.cutoff}{an numeric value indicating a threshold of p-value
 for every genes or miRNAs (rows). Default is 0.05.}
@@ -34,7 +34,7 @@ for every genes or miRNAs (rows). Default is 0.05.}
 using DESeq for method, this param would not affect the result) From
 function \code{\link[stats]{p.adjust}}. Default is "BH".}
 
-\item{foldchange}{an numeric value indicating a threshold of foldchange (log2)
+\item{logratio}{an numeric value indicating a threshold of logratio
 for every genes or miRNAs (rows). Default is 0.5.}
 }
 \value{
@@ -71,4 +71,3 @@ mirna_d <- differExp_discrete(
    \code{\link[stats]{wilcox.test}} for Wilcoxon Rank Sum and Signed Rank
    Tests.
 }
-

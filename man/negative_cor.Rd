@@ -82,4 +82,3 @@ cor <- negative_cor(mrna_data = mrna_d, mirna_data = mirna_d,
 \seealso{
 \code{\link[stats]{cor}} for calculation of correlation.
 }
-

@@ -47,4 +47,3 @@ differExp_continuous(
 \seealso{
 \code{\link[stats]{lm}} for fitting linear models.
 }
-

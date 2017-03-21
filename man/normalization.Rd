@@ -34,4 +34,3 @@ normalization(data = mirna, method = "quantile")
 \code{\link[limma]{normalizeQuantiles}} for quantile normalization;
    \code{\link[lumi]{rankinvariant}} for rank invariant normalization.
 }
-

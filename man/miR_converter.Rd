@@ -52,4 +52,3 @@ mirna_d <- differExp_discrete(
 mirna_21 <- miR_converter(data = mirna_d, original_version = 17)
 
 }
-

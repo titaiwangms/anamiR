@@ -52,4 +52,3 @@ This miRNA expression dataset is originally from GSE19536. To make dataset
 smaller, we have selected 30 samples in columns and 489 miRNAs in rows.
 }
 \keyword{datasets}
-

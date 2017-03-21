@@ -25,4 +25,3 @@ This phenotype dataset is originally from GSE19536. It contains
 3 features in row and 30 samples in column.
 }
 \keyword{datasets}
-

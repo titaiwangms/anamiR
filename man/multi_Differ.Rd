@@ -50,4 +50,3 @@ aov <- multi_Differ(se = mirna_se, class = "Subtype",
 \seealso{
 \code{\link[stats]{aov}} for fit an analysis of variance model.
 }
-

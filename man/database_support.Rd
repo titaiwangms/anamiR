@@ -80,4 +80,3 @@ cor <- negative_cor(mrna_data = mrna_d, mirna_data = mirna_21)
 sup <- database_support(cor_data = cor)
 
 }
-

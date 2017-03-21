@@ -24,4 +24,3 @@ This table is originally from \code{\link[gage]{gage}},
 including 40784 genes.
 }
 \keyword{datasets}
-

@@ -75,4 +75,3 @@ heat_vis(cor, mrna_d, mirna_21)
 \seealso{
 \code{\link[gplots]{heatmap.2}} for plot.
 }
-
