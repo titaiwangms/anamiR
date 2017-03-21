@@ -163,8 +163,8 @@ differExp_discrete <- function(
     colnames(DE_data)[(len_col - 4):len_col] <- c("log-ratio",
                                                   "P-Value",
                                                   "P-adjust",
-                                                  "mean_group1",
-                                                  "mean_group2")
+                                                  "mean_case",
+                                                  "mean_control")
     FC_rows <- abs(DE_data[, len_col - 4])
     DE_data <- DE_data[which(FC_rows > logratio), ]
     return(DE_data)
