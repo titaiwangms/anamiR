@@ -91,7 +91,7 @@ GSEA_res <- function(
   t_test.var = FALSE,
   log2 = FALSE,
   p_adjust.method = "BH",
-  cor_cut = -0.5
+  cor_cut = -0.3
 ) {
   cor_table <- list()
   #workflow
