@@ -26,7 +26,7 @@
 #'    using DESeq for method, this param would not affect the result) From
 #'    function \code{\link[stats]{p.adjust}}. Default is "BH".
 #' @param cor_cut an numeric value indicating a threshold of correlation
-#'    coefficient for every potential miRNA-genes interactions. Default is -0.5,
+#'    coefficient for every potential miRNA-genes interactions. Default is -0.3,
 #'    however, if no interaction pass the threshold, this function would add
 #'    0.2 value in threshold until at least one interaction passed the threshold.
 #'

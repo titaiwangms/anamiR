@@ -6,7 +6,7 @@
 \usage{
 GSEA_res(table, pheno.data, class, DE_method = c("t.test", "limma",
   "wilcox.test", "DESeq"), limma.trend = FALSE, t_test.var = FALSE,
-  log2 = FALSE, p_adjust.method = "BH", cor_cut = -0.5)
+  log2 = FALSE, p_adjust.method = "BH", cor_cut = -0.3)
 }
 \arguments{
 \item{table}{list format containing both selected gene and miRNA
@@ -34,7 +34,7 @@ using DESeq for method, this param would not affect the result) From
 function \code{\link[stats]{p.adjust}}. Default is "BH".}
 
 \item{cor_cut}{an numeric value indicating a threshold of correlation
-coefficient for every potential miRNA-genes interactions. Default is -0.5,
+coefficient for every potential miRNA-genes interactions. Default is -0.3,
 however, if no interaction pass the threshold, this function would add
 0.2 value in threshold until at least one interaction passed the threshold.}
 }

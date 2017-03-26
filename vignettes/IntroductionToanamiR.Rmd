@@ -151,7 +151,7 @@ Secondly, we normalize data.
 se <- normalization(data = mirna, method = "quantile")
 ```
 
-For this function, there are three methods provided, including `quntile`,
+For this function, there are three methods provided, including `quantile`,
 `rank.invariant`, `normal`. For more detail, Please refer to their
 documentation.
 
