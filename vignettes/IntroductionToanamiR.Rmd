@@ -298,7 +298,7 @@ we are also interested in pathways, which may be enriched by
 these genes.
 
 ```{r}
-path <- enrichment(data_support = sup, org = "hsa", per_time = 1000)
+path <- enrichment(data_support = sup, org = "hsa", per_time = 500)
 ```
 
 Note that for parameter per_time, we only choose 1000 times, 

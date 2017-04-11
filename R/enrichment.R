@@ -66,7 +66,7 @@
 #' sup <- database_support(cor_data = cor)
 #'
 #' ## Functional analysis
-#' pat <- enrichment(data_support = sup, org = "hsa", per_time = 1000)
+#' pat <- enrichment(data_support = sup, org = "hsa", per_time = 500)
 #'
 #' @import stats
 #' @import RMySQL
