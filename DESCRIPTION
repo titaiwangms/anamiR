@@ -24,7 +24,7 @@ BugReports: https://github.com/AllenTiTaiWang/anamiR/issues
 LazyData: TRUE
 Imports: stats, DBI, limma, lumi, agricolae, RMySQL, DESeq2,
         SummarizedExperiment, gplots, gage, S4Vectors
-Depends: R (>= 3.3.2), SummarizedExperiment(>= 1.1.6)
+Depends: R (>= 3.3.3), SummarizedExperiment(>= 1.1.6)
 RoxygenNote: 6.0.1
 Author: Ti-Tai Wang [aut, cre], Tzu-Pin Lu [aut], Chien-Yueh Lee[ctb,]
         Eric Y. Chuang [aut]
