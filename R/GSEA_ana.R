@@ -98,10 +98,10 @@ GSEA_ana <- function(
   gp1 <- which(pheno_data == levels(pheno_data)[1])
   gp2 <- which(pheno_data == levels(pheno_data)[2])
 
-  kegg.p <- gage::gage(mrna, gsets = kegg.gs,
+  msigdb.p <- gage::gage(mrna, gsets = msigdb.gs,
                        ref = gp2, samp = gp1, compare = compare)
 
-  pathway <- S4Vectors::head(kegg.p$greater[, 1:pathway_num],
+  pathway <- S4Vectors::head(msigdb.p$greater[, 1:pathway_num],
                   pathway_num)
 
   # connect with db
@@ -117,13 +117,12 @@ GSEA_ana <- function(
     if (grepl("\\(", row.names(pathway)[i])) {
       pat <- strsplit(x = row.names(pathway)[i],
                       split = "\\(")[[1]][1]
-      number <- grep(pat, names(kegg.gs))
+      number <- grep(pat, names(msigdb.gs))
     } else {
-      number <- grep(row.names(pathway)[i], names(kegg.gs))
+      number <- grep(row.names(pathway)[i], names(msigdb.gs))
     }
-    gset_id <- kegg.gs[[number]]
+    gset_id <- msigdb.gs[[number]]
     gset_sym <- gage::eg2sym(gset_id)
-
     gene_list <- c()
     mirna_list <- c()
     for (j in seq_len(length(gset_sym))) {
@@ -146,6 +145,7 @@ GSEA_ana <- function(
 
     mirna_tmp <- mirna[mirow, ]
     mrna_tmp <- mrna[mrow, ]
+
     row.names(mrna_tmp) <- gage::eg2sym(row.names(mrna_tmp))
 
     table[[2 * i - 1]] <- mirna_tmp

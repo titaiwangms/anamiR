@@ -52,43 +52,15 @@ is from \link{GSEA_ana}.
 
 require(data.table)
 
-## Load example data
-aa <- system.file("extdata", "GSE19536_mrna.csv", package = "anamiR")
-mrna <- fread(aa, fill = TRUE, header = TRUE)
-
-bb <- system.file("extdata", "GSE19536_mirna.csv", package = "anamiR")
-mirna <- fread(bb, fill = TRUE, header = TRUE)
-
 cc <- system.file("extdata", "pheno_data.csv", package = "anamiR")
 pheno.data <- fread(cc, fill = TRUE, header = TRUE)
 
 ## adjust data format
-mirna_name <- mirna[["miRNA"]]
-mrna_name <- mrna[["Gene"]]
-mirna <- mirna[, -1]
-mrna <- mrna[, -1]
-mirna <- data.matrix(mirna)
-mrna <- data.matrix(mrna)
-row.names(mirna) <- mirna_name
-row.names(mrna) <- mrna_name
 pheno_name <- pheno.data[["Sample"]]
 pheno.data <- pheno.data[, -1]
 pheno.data <- as.matrix(pheno.data)
 row.names(pheno.data) <- pheno_name
-
-## SummarizedExperiment class
-require(SummarizedExperiment)
-mirna_se <- SummarizedExperiment(
- assays = SimpleList(counts=mirna),
- colData = pheno.data)
-
-mrna_se <- SummarizedExperiment(
- assays = SimpleList(counts=mrna),
- colData = pheno.data)
-
-table <- GSEA_ana(mrna_se = mrna_se,
- mirna_se = mirna_se, class = "ER",
- pathway_num = 2)
+data(table)
 
 result <- GSEA_res(table = table, pheno.data = pheno.data,
  class = "ER", DE_method = "limma")

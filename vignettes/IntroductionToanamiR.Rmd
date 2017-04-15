@@ -417,16 +417,20 @@ mirna_se <- SummarizedExperiment(
 First step, we use `GSEA_ana` function to find the pathways 
 which are the most likely enriched in given expreesion data.
 
-```{r}
+```{r, eval = FALSE}
 table <- GSEA_ana(mrna_se = mrna_se, mirna_se = mirna_se, class = "ER", pathway_num = 2)
 ```
 
 the result would be a list containg related genes and miRNAs
 matrix for each pathway.
 
+Note that because it would take a few minutes to run GSEA_ana, 
+here we use the pre-calculated data to show the output.
+
 For the first pathway,
 
 ```{r}
+data(table)
 names(table)[1]
 table[[1]][1:5, 1:5]
 names(table)[2]
