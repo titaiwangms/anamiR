@@ -43,9 +43,9 @@
 #' pheno.data <- pheno.data[, -1]
 #' pheno.data <- as.matrix(pheno.data)
 #' row.names(pheno.data) <- pheno_name
-#' data(table)
+#' data(table_pre)
 #'
-#' result <- GSEA_res(table = table, pheno.data = pheno.data,
+#' result <- GSEA_res(table = table_pre, pheno.data = pheno.data,
 #'  class = "ER", DE_method = "limma")
 #'
 #' @importFrom  SummarizedExperiment SummarizedExperiment

@@ -427,14 +427,17 @@ matrix for each pathway.
 Note that because it would take a few minutes to run GSEA_ana, 
 here we use the pre-calculated data to show the output.
 
+```{r}
+data(table_pre)
+```
+
 For the first pathway,
 
 ```{r}
-data(table)
-names(table)[1]
-table[[1]][1:5, 1:5]
-names(table)[2]
-table[[2]][1:5, 1:5]
+names(table_pre)[1]
+table_pre[[1]][1:5, 1:5]
+names(table_pre)[2]
+table_pre[[2]][1:5, 1:5]
 ```
 
 `GSEA_ana` intersects the related genes and miRNAs found
@@ -447,7 +450,7 @@ expression data for each enriched pathway. As for the second
 step, the generated odject would be put into `GSEA_res`.
 
 ```{r}
-result <- GSEA_res(table = table, pheno.data = pheno.data, class = "ER", DE_method = "limma")
+result <- GSEA_res(table = table_pre, pheno.data = pheno.data, class = "ER", DE_method = "limma")
 ```
 
 This function helps us calculate P-value, Fold-Change,
