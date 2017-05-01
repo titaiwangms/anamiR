@@ -1,0 +1,23 @@
+citHeader("To cite anamiR in publications use:")
+citEntry(
+    entry        = "Unpublished",  # Later change it to `Article`
+    title        = "anamiR--an integrated analysis package of miRNA and mRNA expression.",
+    author       = personList(
+        person("Ti-Tai", "Wang"),
+        person("Tzu-Pin", "Lu"),
+        person("Chien-Yueh", "Lee"),
+        person("Liang-Chuan", "Lai"),
+        person("Mong-Hsun", "Tsai"),
+        person("Eric Y.", "Chuang")
+    ),
+    note = "Manuscript submitted for publication",
+    # journal      = "Bioinformatics",
+    year         = "2015",
+    # volume       = "vv",
+    # number       = "nn",
+    # pages        = "pp--pp",
+    textVersion  = paste(
+        "Ti-Tai Wang, Tzu-Pin Lu, Chien-Yueh Lee, Liang-Chuan Lai, Mong-Hsun Tsai, and Eric Y. Chuang (2016).",
+        "anamiR--an integrated analysis package of miRNA and mRNA expression.",
+        "Manuscript submitted for publication.")
+)

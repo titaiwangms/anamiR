@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "### SummarizedExperiment ###\ncolData <- DataFrame(Treatment=,row.names=colnames(mirna))\nse0 <- SummarizedExperiment(assays=SimpleList(counts=mirna),colData=colData)\n###\nse <- SummarizedExperiment(assays = SimpleList(counts=countData), colData = colData)\n\n### RangedSummarizedExperiment ###\nrowRanges <- GRanges(rep(c(\"chr1\", \"chr2\"), c(50, 150)),\n                     IRanges(floor(runif(200, 1e5, 1e6)), width=100),\n                     strand=sample(c(\"+\", \"-\"), 200, TRUE),\n                     feature_id=sprintf(\"ID%03d\", 1:200))\ncolData <- DataFrame(Treatment=rep(c(\"ChIP\", \"Input\"), 3),\n                     row.names=LETTERS[1:6])\nse <- SummarizedExperiment(assays=list(counts=counts),colData=colData)\n### (不需要rowRanges資料，所以SummarizedExperiment就很足夠了)",
+    "created" : 1474547082003.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "4251538738",
+    "id" : "9711245",
+    "lastKnownWriteTime" : -4556867907719528442,
+    "last_content_update" : 1475489578866,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
