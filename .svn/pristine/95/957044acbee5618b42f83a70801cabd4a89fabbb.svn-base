@@ -1,8 +1,0 @@
-; This file is used internally by git-svn
-; You should not have to edit it
-[svn-remote "devel"]
-	reposRoot = https://hedgehog.fhcrc.org/bioconductor
-	uuid = bc3139a8-67e5-0310-9ffc-ced21a209358
-[svn-remote "release-3.4"]
-	reposRoot = https://hedgehog.fhcrc.org/bioconductor
-	uuid = bc3139a8-67e5-0310-9ffc-ced21a209358
