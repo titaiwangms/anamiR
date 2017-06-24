@@ -450,7 +450,7 @@ expression data for each enriched pathway. As for the second
 step, the generated odject would be put into `GSEA_res`.
 
 ```{r}
-result <- GSEA_res(table = table_pre, pheno.data = pheno.data, class = "ER", DE_method = "limma")
+result <- GSEA_res(table = table_pre, pheno.data = pheno.data, class = "ER", DE_method = "limma", cor_cut = 0)
 ```
 
 This function helps us calculate P-value, Fold-Change,

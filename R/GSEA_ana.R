@@ -125,19 +125,19 @@ GSEA_ana <- function(
     gset_sym <- gage::eg2sym(gset_id)
     gene_list <- c()
     mirna_list <- c()
+    gset_sym <- intersect(gset_sym, mrna_name)
     for (j in seq_len(length(gset_sym))) {
       gene <- gset_sym[j]
       query <- paste0("SELECT `miRNA_21`, `gene_symbol`
                       FROM `all_hsa` where gene_symbol like '",
                       gene, "' ;")
       tmp <- DBI::dbGetQuery(db, query)
-      row_need <- which(tmp[["miRNA_21"]] %in% mirna_name &&
-                          tmp[["gene_symbol"]] %in% mrna_name)
+      row_need <- which(tmp[["miRNA_21"]] %in% mirna_name)
       tmp <- tmp[row_need, ]
-      gene_list <- c(gene_list, tmp[["gene_symbol"]])
+      gene_list <- c(gene_list, gene)
       mirna_list <- c(mirna_list, tmp[["miRNA_21"]])
+      mirna_list <- unique(mirna_list)
     }
-    mirna_list <- unique(mirna_list)
     gene_list <- unique(gene_list)
 
     mirow <- which(mirna_name %in% mirna_list)
