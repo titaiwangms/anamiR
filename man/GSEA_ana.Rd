@@ -2,7 +2,7 @@
 % Please edit documentation in R/GSEA_ana.R
 \name{GSEA_ana}
 \alias{GSEA_ana}
-\title{This function will do GSEA analysis.}
+\title{This function will do function driven analysis.}
 \usage{
 GSEA_ana(mrna_se, mirna_se, class, compare = "unpaired", eg2sym = TRUE,
   pathway_num = 5)

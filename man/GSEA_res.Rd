@@ -63,7 +63,7 @@ row.names(pheno.data) <- pheno_name
 data(table_pre)
 
 result <- GSEA_res(table = table_pre, pheno.data = pheno.data,
- class = "ER", DE_method = "limma")
+ class = "ER", DE_method = "limma", cor_cut = 0)
 
 }
 \seealso{
