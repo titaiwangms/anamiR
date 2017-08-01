@@ -46,7 +46,9 @@ normalization <- function(
   }
 
   if (method %in% "rank.invariant") {
-    data <- lumi::rankinvariant(as.matrix(data))
+    data <- lumi::rankinvariant(as.matrix(data),  targetArray = NULL,
+                                rrc = .05, lowRank = seq(.5, .25, -.05),
+                                highRank = .9, minSize = .02, maxit=200)
     data <- as.data.frame(data)
   }
 

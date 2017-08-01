@@ -2,7 +2,7 @@ Package: anamiR
 Type: Package
 Title: An integrated analysis package of miRNA and mRNA expression
     data
-Version: 1.5.4
+Version: 1.5.5
 Authors@R: c(
         person("Ti-Tai", "Wang", email = "r04945002@ntu.edu.tw", role = c("cre", "aut")),
         person("Tzu-Pin", "Lu", email = "tplu@ntu.edu.tw", role = c("aut")),

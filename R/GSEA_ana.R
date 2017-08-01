@@ -1,4 +1,4 @@
-#' This function will do GSEA analysis.
+#' This function will do function driven analysis.
 #'
 #' This function will do GSEA analysis through the function
 #' \code{\link[gage]{gage}}. After obtaining the ranking of

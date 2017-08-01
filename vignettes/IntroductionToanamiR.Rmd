@@ -12,7 +12,8 @@ vignette: >
 ---
 This document guides one through all available functions of the `anamiR` package. Package anamiR aims to find potential miRNA-target gene interactions from both miRNA and mRNA expression data.
 
-Traditional miRNA analysis method is to use online databases to predict miRNA-target gene interactions. However, the false positive rate of prediction is so high that interactions are not reliable. To address this issue, anamiR integrates the whole expression analysis with expression data into workflow, including normalization, differential expression, correlation and then databases intersection, to find more reliable interactions.
+Traditional miRNA analysis method is to use online databases to predict miRNA-target gene interactions. However, the inconsistent results make interactions are less reliable. To address this issue, anamiR integrates the whole expression analysis with expression data into workflow, including normalization, differential expression, correlation and then databases intersection, to find more reliable interactions.
+Moreover, users can identify interactions from interested pathways or gene sets.
 
 
 ## Installation
@@ -35,7 +36,7 @@ library(anamiR)
 
 The general workflow can be summarized as follows,
 
-![](pics/workflow.png)
+![](pics/Generalworkflow.png)
 
 Basically there are six steps, corresponding to six R functions, to complete the whole analysis:
 
@@ -313,12 +314,12 @@ head(path)
 ```
 
 
-## GSEA Workflow
+## Function Driven Analysis Workflow
 
 This package also provides another workflow for analyzing
 expression data.
 
-![](pics/GSEA.png)
+![](pics/GSEAworkflow.png)
 
 Basically there are only two steps with two R functions, to complete the whole analysis:
 
