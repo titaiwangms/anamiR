@@ -61,9 +61,9 @@
 #'  assays = SimpleList(counts=mrna),
 #'  colData = pheno.data)
 #'
-#' table <- GSEA_ana(mrna_se = mrna_se,
-#'  mirna_se = mirna_se, class = "ER",
-#'  pathway_num = 2)
+#' #table <- GSEA_ana(mrna_se = mrna_se,
+#' #mirna_se = mirna_se, class = "ER",
+#' #pathway_num = 2)
 #'
 #' @import gage
 #' @import RMySQL
