@@ -72,6 +72,7 @@ Basically there are six steps, corresponding to six R functions, to complete the
 5. Predict and validate the intersection of miRNA-target gene interaction databases
 6. Functional analysis of genes of interest
 
+![alt text](https://github.com/AllenTiTaiWang/anamiR-2.0/blob/master/vignettes/pics/Generalworkflow.png)
 
 1. Import data
 ```R
