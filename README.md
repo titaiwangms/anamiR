@@ -159,6 +159,7 @@ Basically there are only two steps with two R functions, to complete the whole a
 1. Find related miRNAs and genes in the possible enriched pathways.
 2. Find potential interactions from the above result.
 
+![alt text](https://github.com/AllenTiTaiWang/anamiR-2.0/blob/master/vignettes/pics/GSEAworkflow.png)
 
 1. Load data
 
