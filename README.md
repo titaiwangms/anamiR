@@ -1,7 +1,5 @@
-# anamiR-2.0
+# anamiR
 An integrated analysis R package of miRNA and mRNA profiiling
-
-## anamiR
 
 This document guides the user through all available functions of the anamiR package. anamiR aims to find potential miRNA-target gene interactions from both miRNA and mRNA expression data.
 
