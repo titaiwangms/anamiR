@@ -79,5 +79,5 @@ pat <- enrichment(data_support = sup, org = "hsa", per_time = 100)
 
 }
 \seealso{
-\code{\link[stats]{phyper}} for details.
+\code{\link[stats]{Hypergeometric}} for details.
 }

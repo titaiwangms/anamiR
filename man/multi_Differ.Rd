@@ -4,12 +4,12 @@
 \alias{multi_Differ}
 \title{Find differential expression groups of each genes or miRNA from expression data}
 \usage{
-multi_Differ(se, class, anova_p_value = 0.05, post_hoc = c("scheffe.test",
-  "duncan.test", "HSD.test"), post_hoc_p_value = 0.05)
+multi_Differ(se, class, anova_p_value = 0.05,
+  post_hoc = c("scheffe.test", "duncan.test", "HSD.test"),
+  post_hoc_p_value = 0.05)
 }
 \arguments{
-\item{se}{\code{\link[SummarizedExperiment]{SummarizedExperiment}}
-for input format.}
+\item{se}{SummarizedExperiment for input format.}
 
 \item{class}{string. Choose one features from all rows of phenotype data.}
 

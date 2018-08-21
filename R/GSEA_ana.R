@@ -11,10 +11,8 @@
 #'
 #' @seealso \code{\link[gage]{gage}} for GSEA analysis.
 #'
-#' @param mrna_se \code{\link[SummarizedExperiment]{SummarizedExperiment}}
-#'    for input format and it contains mRNA information.
-#' @param mirna_se \code{\link[SummarizedExperiment]{SummarizedExperiment}}
-#'    for input format, and it contains miRNA information.
+#' @param mrna_se SummarizedExperiment for input format and it contains mRNA information.
+#' @param mirna_se SummarizedExperiment for input format, and it contains miRNA information.
 #' @param class string. Choose one features from all rows of phenotype data.
 #' @param eg2sym logical. conversion between Entrez Gene IDs
 #'    and official gene symbols for human genes.

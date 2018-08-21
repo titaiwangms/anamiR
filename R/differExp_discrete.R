@@ -12,8 +12,7 @@
 #' @return data expression data in matrix format, with sample name in columns and
 #'    gene symbol or miRNA name in rows.
 #'
-#' @param se \code{\link[SummarizedExperiment]{SummarizedExperiment}}
-#'    for input format.
+#' @param se SummarizedExperiment for input format.
 #' @param class string. Choose one features from all rows of phenotype data.
 #' @param method statistical method for finding differential genes or miRNAs,
 #'    including "t.test", "wilcox.test", "limma". Default is "t.test".

@@ -14,7 +14,7 @@
 #'    targets in total genes of the term (%), raw p-value, empirical
 #'    p-value.
 #'
-#' @seealso \code{\link[stats]{phyper}} for details.
+#' @seealso \code{\link[stats]{Hypergeometric}} for details.
 #'
 #' @param data_support matrix format generated from
 #'    \link{database_support}.

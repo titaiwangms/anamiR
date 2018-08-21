@@ -9,8 +9,7 @@
 #'
 #' @seealso \code{\link[stats]{aov}} for fit an analysis of variance model.
 #'
-#' @param se \code{\link[SummarizedExperiment]{SummarizedExperiment}}
-#'    for input format.
+#' @param se SummarizedExperiment for input format.
 #' @param class string. Choose one features from all rows of phenotype data.
 #' @param anova_p_value an numeric value indicating a threshold of p-value from anova
 #'    for every genes or miRNAs (rows). Default is 0.05.
@@ -54,41 +53,34 @@ multi_Differ <- function(
 
   post_hoc <- match.arg(post_hoc)
   # preprocess
-  if (class %in% colnames(pheno_data)) {
+  if (!is.null(pheno_data)) {
     # seperate group
-    class.number <- grep(class, colnames(pheno_data))
-    group <- as.factor(pheno_data[, class.number])
-    group1 <- list()
-    # cut data in many pieces
-    group_num <- length(levels(group))
-    for (i in seq_len(group_num)) {
-      group1[[i]] <- data[, which(group == levels(group)[i])]
-    }
-
+    group_num <- length(levels(pheno_data))
+    pd <- factor(pheno_data, labels = levels(pheno_data))
    # anova
     idx <- c()
     column <- group_num * (group_num - 1) / 2
     count <- matrix(, nrow(data), column)
     for (i in seq_len(nrow(data))) {
-      a <- stats::aov(t(data[i, ]) ~ group)
+      a <- stats::aov(data[i, ] ~ pd)
       a_sum <- summary(a)
       if (a_sum[[1]][1, "Pr(>F)"] < anova_p_value) {
         idx <- c(idx, i)
         if (post_hoc %in% "scheffe.test"){
           res <- agricolae::scheffe.test(a,
-                                         "group",
+                                         "pd",
                                          group = FALSE,
                                          console = FALSE)
         }
         if (post_hoc %in% "duncan.test"){
           res <- agricolae::duncan.test(a,
-                                        "group",
+                                        "pd",
                                         group = FALSE,
                                         console = FALSE)
         }
         if (post_hoc %in% "HSD.test"){
           res <- agricolae::HSD.test(a,
-                                     "group",
+                                     "pd",
                                      group = FALSE,
                                      console = FALSE)
         }

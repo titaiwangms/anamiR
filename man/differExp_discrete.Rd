@@ -4,13 +4,13 @@
 \alias{differExp_discrete}
 \title{Find differential expression genes or miRNAs from given expression data}
 \usage{
-differExp_discrete(se, class, method = c("t.test", "limma", "wilcox.test",
-  "DESeq"), limma.trend = FALSE, t_test.var = FALSE, log2 = FALSE,
-  p_value.cutoff = 0.05, p_adjust.method = "BH", logratio = 0.5)
+differExp_discrete(se, class, method = c("t.test", "limma",
+  "wilcox.test", "DESeq"), limma.trend = FALSE, t_test.var = FALSE,
+  log2 = FALSE, p_value.cutoff = 0.05, p_adjust.method = "BH",
+  logratio = 0.5)
 }
 \arguments{
-\item{se}{\code{\link[SummarizedExperiment]{SummarizedExperiment}}
-for input format.}
+\item{se}{SummarizedExperiment for input format.}
 
 \item{class}{string. Choose one features from all rows of phenotype data.}
 

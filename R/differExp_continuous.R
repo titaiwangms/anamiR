@@ -9,8 +9,7 @@
 #' @return data expression data in matrix format, with sample name in columns and
 #'    gene symbol or miRNA name in rows.
 #'
-#' @param se \code{\link[SummarizedExperiment]{SummarizedExperiment}}
-#'    for input format.
+#' @param se SummarizedExperiment for input format.
 #' @param class string. Choose one features from all rows of phenotype data.
 #' @param log2 logical, if this data hasn't been log2 transformed yet, this one
 #'    should be TRUE. Default is FALSE.

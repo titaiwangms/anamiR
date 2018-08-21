@@ -8,11 +8,9 @@ GSEA_ana(mrna_se, mirna_se, class, compare = "unpaired", eg2sym = TRUE,
   pathway_num = 5)
 }
 \arguments{
-\item{mrna_se}{\code{\link[SummarizedExperiment]{SummarizedExperiment}}
-for input format and it contains mRNA information.}
+\item{mrna_se}{SummarizedExperiment for input format and it contains mRNA information.}
 
-\item{mirna_se}{\code{\link[SummarizedExperiment]{SummarizedExperiment}}
-for input format, and it contains miRNA information.}
+\item{mirna_se}{SummarizedExperiment for input format, and it contains miRNA information.}
 
 \item{class}{string. Choose one features from all rows of phenotype data.}
 

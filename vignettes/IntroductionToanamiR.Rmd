@@ -163,16 +163,16 @@ demonstration.
 
 Before entering the main workflow, we should put our data and phenotype 
 information into `SummarizedExperiment` class first, which you can get 
-more information from \code{\link[SummarizedExperiment]{SummarizedExperiment}}.
+more information from SummarizedExperiment.
 
 ```{r}
 
-mrna_se <- SummarizedExperiment(
-    assays = SimpleList(counts=mrna),
+mrna_se <- SummarizedExperiment::SummarizedExperiment(
+    assays = S4Vectors::SimpleList(counts=mrna),
     colData = pheno.mrna)
 
-mirna_se <- SummarizedExperiment(
-    assays = SimpleList(counts=mirna),
+mirna_se <- SummarizedExperiment::SummarizedExperiment(
+    assays = S4Vectors::SimpleList(counts=mirna),
     colData = pheno.mirna)
 
 ```
@@ -399,16 +399,16 @@ pheno.data[94:98, 1]
 
 Before entering the main workflow, we should put our data and phenotype 
 information into `SummarizedExperiment` class first, which you can get 
-more information from \code{\link[SummarizedExperiment]{SummarizedExperiment}}.
+more information from SummarizedExperiment.
 
 ```{r}
 
-mrna_se <- SummarizedExperiment(
-    assays = SimpleList(counts=mrna),
+mrna_se <- SummarizedExperiment::SummarizedExperiment(
+    assays = S4Vectors::SimpleList(counts=mrna),
     colData = pheno.data)
 
-mirna_se <- SummarizedExperiment(
-    assays = SimpleList(counts=mirna),
+mirna_se <- SummarizedExperiment::SummarizedExperiment(
+    assays = S4Vectors::SimpleList(counts=mirna),
     colData = pheno.data)
 
 ```

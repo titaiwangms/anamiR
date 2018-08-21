@@ -7,8 +7,7 @@
 differExp_continuous(se, class, log2 = FALSE, p_value.cutoff = 0.05)
 }
 \arguments{
-\item{se}{\code{\link[SummarizedExperiment]{SummarizedExperiment}}
-for input format.}
+\item{se}{SummarizedExperiment for input format.}
 
 \item{class}{string. Choose one features from all rows of phenotype data.}
 
