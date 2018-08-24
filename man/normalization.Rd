@@ -15,8 +15,7 @@ and gene symbol or miRNA name in rows.}
 we trim the extreme value and calculate the mean in the data.}
 }
 \value{
-\code{\link[SummarizedExperiment]{SummarizedExperiment}}
-   for return object.
+SummarizedExperiment for return object.
 }
 \description{
 This function will normalize the given expression data and return

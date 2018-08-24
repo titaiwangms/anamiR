@@ -6,8 +6,7 @@
 #' @seealso \code{\link[limma]{normalizeQuantiles}} for quantile normalization;
 #'    \code{\link[lumi]{rankinvariant}} for rank invariant normalization.
 #'
-#' @return \code{\link[SummarizedExperiment]{SummarizedExperiment}}
-#'    for return object.
+#' @return SummarizedExperiment for return object.
 #'
 #' @param data expression data in matrix format, with sample name in columns
 #'    and gene symbol or miRNA name in rows.

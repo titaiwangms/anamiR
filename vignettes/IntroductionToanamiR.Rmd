@@ -21,8 +21,8 @@ Moreover, users can identify interactions from interested pathways or gene sets.
 anamiR is on Bioconductor and can be installed following standard installation procedure.
 
 ```{r, eval = FALSE}
-source("http://www.bioconductor.org/biocLite.R")
-biocLite("anamiR")
+install.packages("BiocManager")
+BiocManager::install("anamiR")
 ```
 
 To use,

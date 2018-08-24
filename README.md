@@ -49,8 +49,8 @@ SampleC  121.22     A       B
 anamiR is on Bioconductor and can be installed following standard installation procedure.
 
 ```R
-source("http://www.bioconductor.org/biocLite.R")
-biocLite("anamiR")
+install.packages("BiocManager")
+BiocManager::install("anamiR")
 ```
 
 To use,
